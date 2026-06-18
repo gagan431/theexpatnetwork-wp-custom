@@ -1,0 +1,270 @@
+{
+  "meta": {
+    "version": "2026.1-v0",
+    "lastUpdated": "2026-06-17",
+    "salaryDataConfidence": "v0 manual calibration"
+  },
+  "blueCard": {
+    "standard": 50700,
+    "shortage": 45934.2,
+    "year": 2026
+  },
+  "cities": {
+    "Berlin": {
+      "tier": "Medium",
+      "single": 50000,
+      "coupleOneEarner": 62000,
+      "coupleTwoEarners": 56000,
+      "family": 80000,
+      "rentPressure": "Medium",
+      "confidence": "Medium"
+    },
+    "Munich": {
+      "tier": "Very High",
+      "single": 65000,
+      "coupleOneEarner": 85000,
+      "coupleTwoEarners": 78000,
+      "family": 105000,
+      "rentPressure": "Very High",
+      "confidence": "Medium"
+    },
+    "Hamburg": {
+      "tier": "High",
+      "single": 54000,
+      "coupleOneEarner": 68000,
+      "coupleTwoEarners": 62000,
+      "family": 85000,
+      "rentPressure": "High",
+      "confidence": "Low"
+    },
+    "Frankfurt": {
+      "tier": "High",
+      "single": 56000,
+      "coupleOneEarner": 70000,
+      "coupleTwoEarners": 64000,
+      "family": 88000,
+      "rentPressure": "High",
+      "confidence": "Low"
+    },
+    "Stuttgart": {
+      "tier": "High",
+      "single": 54000,
+      "coupleOneEarner": 68000,
+      "coupleTwoEarners": 62000,
+      "family": 85000,
+      "rentPressure": "High",
+      "confidence": "Low"
+    },
+    "Düsseldorf": {
+      "tier": "Medium",
+      "single": 50000,
+      "coupleOneEarner": 63000,
+      "coupleTwoEarners": 58000,
+      "family": 80000,
+      "rentPressure": "Medium",
+      "confidence": "Low"
+    },
+    "Leipzig": {
+      "tier": "Low",
+      "single": 43000,
+      "coupleOneEarner": 55000,
+      "coupleTwoEarners": 50000,
+      "family": 70000,
+      "rentPressure": "Low",
+      "confidence": "Low"
+    },
+    "Other Germany": {
+      "tier": "Medium",
+      "single": 48000,
+      "coupleOneEarner": 60000,
+      "coupleTwoEarners": 55000,
+      "family": 76000,
+      "rentPressure": "Medium",
+      "confidence": "Low"
+    }
+  },
+  "roles": {
+    "Software / IT": {
+      "shortageOccupation": true,
+      "bands": {
+        "0-2": {
+          "low": 45000,
+          "mid": 55000,
+          "strong": 68000
+        },
+        "3-5": {
+          "low": 55000,
+          "mid": 68000,
+          "strong": 85000
+        },
+        "6-10": {
+          "low": 65000,
+          "mid": 80000,
+          "strong": 100000
+        },
+        "10+": {
+          "low": 80000,
+          "mid": 95000,
+          "strong": 120000
+        }
+      },
+      "confidence": "Medium"
+    },
+    "Data / Analytics": {
+      "shortageOccupation": true,
+      "bands": {
+        "0-2": {
+          "low": 42000,
+          "mid": 52000,
+          "strong": 62000
+        },
+        "3-5": {
+          "low": 52000,
+          "mid": 65000,
+          "strong": 78000
+        },
+        "6-10": {
+          "low": 62000,
+          "mid": 78000,
+          "strong": 95000
+        },
+        "10+": {
+          "low": 75000,
+          "mid": 90000,
+          "strong": 110000
+        }
+      },
+      "confidence": "Low"
+    },
+    "Engineering": {
+      "shortageOccupation": true,
+      "bands": {
+        "0-2": {
+          "low": 43000,
+          "mid": 52000,
+          "strong": 62000
+        },
+        "3-5": {
+          "low": 52000,
+          "mid": 65000,
+          "strong": 78000
+        },
+        "6-10": {
+          "low": 62000,
+          "mid": 78000,
+          "strong": 95000
+        },
+        "10+": {
+          "low": 75000,
+          "mid": 90000,
+          "strong": 110000
+        }
+      },
+      "confidence": "Low"
+    },
+    "Healthcare / Nursing": {
+      "shortageOccupation": true,
+      "bands": {
+        "0-2": {
+          "low": 38000,
+          "mid": 45000,
+          "strong": 52000
+        },
+        "3-5": {
+          "low": 43000,
+          "mid": 52000,
+          "strong": 62000
+        },
+        "6-10": {
+          "low": 50000,
+          "mid": 60000,
+          "strong": 72000
+        },
+        "10+": {
+          "low": 58000,
+          "mid": 70000,
+          "strong": 85000
+        }
+      },
+      "confidence": "Low"
+    },
+    "Finance / Business": {
+      "shortageOccupation": false,
+      "bands": {
+        "0-2": {
+          "low": 42000,
+          "mid": 52000,
+          "strong": 65000
+        },
+        "3-5": {
+          "low": 55000,
+          "mid": 70000,
+          "strong": 90000
+        },
+        "6-10": {
+          "low": 70000,
+          "mid": 90000,
+          "strong": 115000
+        },
+        "10+": {
+          "low": 90000,
+          "mid": 115000,
+          "strong": 150000
+        }
+      },
+      "confidence": "Low"
+    },
+    "Skilled Trades": {
+      "shortageOccupation": true,
+      "bands": {
+        "0-2": {
+          "low": 35000,
+          "mid": 42000,
+          "strong": 50000
+        },
+        "3-5": {
+          "low": 42000,
+          "mid": 50000,
+          "strong": 60000
+        },
+        "6-10": {
+          "low": 50000,
+          "mid": 60000,
+          "strong": 72000
+        },
+        "10+": {
+          "low": 60000,
+          "mid": 72000,
+          "strong": 85000
+        }
+      },
+      "confidence": "Low"
+    },
+    "Other": {
+      "shortageOccupation": false,
+      "bands": {
+        "0-2": {
+          "low": 38000,
+          "mid": 48000,
+          "strong": 58000
+        },
+        "3-5": {
+          "low": 48000,
+          "mid": 60000,
+          "strong": 72000
+        },
+        "6-10": {
+          "low": 58000,
+          "mid": 72000,
+          "strong": 90000
+        },
+        "10+": {
+          "low": 70000,
+          "mid": 85000,
+          "strong": 105000
+        }
+      },
+      "confidence": "Low"
+    }
+  }
+}
