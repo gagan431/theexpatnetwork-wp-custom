@@ -1,0 +1,60 @@
+# OS / editor
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.swp
+
+# Environment / secrets
+.env
+.env.*
+*.key
+*.pem
+*.crt
+*.p12
+*.pfx
+auth.json
+secrets.*
+wp-config.php
+
+# WordPress core and runtime content
+wordpress/
+wp-admin/
+wp-includes/
+wp-content/uploads/
+wp-content/cache/
+wp-content/upgrade/
+wp-content/backups/
+wp-content/backup-db/
+wp-content/ai1wm-backups/
+wp-content/updraft/
+wp-content/wflogs/
+wp-content/debug.log
+
+# Database and site backups
+*.sql
+*.sql.gz
+*.mysql
+*.db
+*.sqlite
+*.tar
+*.tar.gz
+*.tgz
+*.7z
+
+# Dependencies / generated
+node_modules/
+vendor/
+dist/
+build/
+coverage/
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Keep release ZIPs, block random archives
+*.zip
+!releases/*.zip
