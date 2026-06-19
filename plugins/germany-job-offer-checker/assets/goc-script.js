@@ -10,6 +10,8 @@
   let scoringDataPromise = null;
   let scoringData = null;
 
+  const DISCLAIMER_TEXT = "This tool provides an educational readiness estimate based on the information you enter. It is not legal, immigration, tax, or financial advice and does not guarantee visa approval, Blue Card eligibility, or job-offer suitability. Always verify requirements with official sources or a qualified professional.";
+
   function loadScoringData() {
     if (!scoringDataPromise) {
       scoringDataPromise = fetch(GOC_PLUGIN.dataUrl).then(function (response) {
@@ -29,10 +31,10 @@
   }
 
   // Escapes any value before it is interpolated into an innerHTML template.
-  // The values below (city/role names, the checklist URL) currently only
-  // ever come from the plugin's own JSON file, so this isn't exploitable
-  // today -- but it's cheap, defense-in-depth hardening against the data
-  // file someday becoming admin-editable or sourced from user input.
+  // The values below (city/role names, the review URL) currently only
+  // ever come from the plugin's own JSON file or localized WordPress data,
+  // so this isn't exploitable today -- but it's cheap, defense-in-depth
+  // hardening against future configuration changes.
   function escapeHtml(value) {
     return String(value)
       .replace(/&/g, "&amp;")
@@ -86,7 +88,9 @@
       return {
         status: "Not checked",
         threshold: null,
-        message: "Blue Card threshold was not checked because you marked it as not relevant."
+        thresholdLabel: "Not checked",
+        message: "Blue Card salary-readiness was not checked because you marked it as not relevant.",
+        summary: "Review your offer against the route that applies to your situation, and verify official requirements before making a decision."
       };
     }
 
@@ -94,12 +98,17 @@
     const threshold = roleData && roleData.shortageOccupation
       ? scoringData.blueCard.shortage
       : scoringData.blueCard.standard;
+    const thresholdLabel = roleData && roleData.shortageOccupation
+      ? "Reduced shortage/MINT-style threshold"
+      : "Standard threshold";
 
     if (input.salary >= threshold) {
       return {
         status: "Green",
         threshold: threshold,
-        message: "Your salary appears above the " + year + " threshold of " + euro(threshold) + "."
+        thresholdLabel: thresholdLabel,
+        message: "Your salary appears above the selected " + year + " threshold of " + euro(threshold) + " based on the information entered.",
+        summary: "Verify role category, degree recognition, contract details, and official requirements before relying on this signal."
       };
     }
 
@@ -107,14 +116,18 @@
       return {
         status: "Yellow",
         threshold: threshold,
-        message: "Your salary is close to the " + year + " threshold of " + euro(threshold) + ". Verify carefully before relying on this."
+        thresholdLabel: thresholdLabel,
+        message: "Your salary appears close to the selected " + year + " threshold of " + euro(threshold) + ". Review recommended before accepting.",
+        summary: "Small differences in salary, role category, or guaranteed compensation can materially change the readiness signal."
       };
     }
 
     return {
       status: "Red",
       threshold: threshold,
-      message: "Your salary appears below the " + year + " threshold of " + euro(threshold) + ". This may be a serious issue if the Blue Card route is relevant."
+      thresholdLabel: thresholdLabel,
+      message: "Your salary appears below the selected " + year + " threshold of " + euro(threshold) + ". Review recommended before accepting.",
+      summary: "Verify role category and official requirements, and consider whether the offer needs negotiation or a different route assessment."
     };
   }
 
@@ -151,55 +164,84 @@
   function renderResult(root, result, input) {
     const resultEl = root.querySelector("[data-goc-result]");
     const negotiation = result.marketScore <= 4
-      ? "Negotiate strongly or investigate carefully."
+      ? "Negotiate strongly or investigate the offer carefully."
       : result.marketScore <= 6
-        ? "Consider negotiating."
-        : "Offer appears reasonable; negotiate if you have leverage.";
+        ? "Consider negotiating, especially if the city costs or Blue Card salary-readiness signal is borderline."
+        : "The market signal appears reasonable, but still verify the full contract and relocation context.";
 
     const safeCity = escapeHtml(input.city);
     const safeRole = escapeHtml(input.role);
     const safeExperience = escapeHtml(input.experience);
-    const checklistUrl = escapeHtml(GOC_PLUGIN.checklistUrl || "/germany-job-offer-checklist/");
+    const safeSalary = escapeHtml(euro(input.salary));
+    const safeThreshold = result.blueCard.threshold ? escapeHtml(euro(result.blueCard.threshold)) : "Not checked";
+    const safeThresholdLabel = escapeHtml(result.blueCard.thresholdLabel || "Selected threshold");
+    const safeBlueCardMessage = escapeHtml(result.blueCard.message);
+    const safeBlueCardSummary = escapeHtml(result.blueCard.summary);
+    const reviewUrl = escapeHtml(GOC_PLUGIN.reviewUrl || "/services/germany-job-offer-review/");
 
     resultEl.innerHTML = `
+      <div class="goc-readiness-card">
+        <div class="goc-score-label">Blue Card / salary-readiness first</div>
+        <div class="goc-readiness-head">
+          <h3>Salary-readiness summary</h3>
+          <span class="goc-pill ${cssStatus(result.blueCard.status)}">${escapeHtml(result.blueCard.status)}</span>
+        </div>
+        <div class="goc-threshold-grid">
+          <div class="goc-threshold-item">
+            <span>Entered salary</span>
+            <strong>${safeSalary}</strong>
+          </div>
+          <div class="goc-threshold-item">
+            <span>${safeThresholdLabel}</span>
+            <strong>${safeThreshold}</strong>
+          </div>
+        </div>
+        <p>${safeBlueCardMessage}</p>
+        <p class="goc-small-note">${safeBlueCardSummary}</p>
+      </div>
+
       <div class="goc-score-head">
-        <div class="goc-score-label">Your Offer Reality Score</div>
+        <div class="goc-score-label">Overall Offer Reality Score</div>
         <div class="goc-score-line">
           <div class="goc-score-number">${result.finalScore.toFixed(1)}/10</div>
           <span class="goc-pill ${cssStatus(result.verdict)}">${result.verdict}</span>
         </div>
       </div>
+
       <div class="goc-panels">
         <div class="goc-panel">
           <div class="goc-mini-score">${result.affordabilityScore}/10</div>
-          <h4>Can you live on this?</h4>
-          <p>For ${safeCity}, the v0 comfort floor for this household type is around ${euro(result.comfortFloor)} gross/year. Rent pressure: ${result.rentPressure}.</p>
+          <h4>City / affordability signal</h4>
+          <p>For ${safeCity}, the v0 comfort floor for this household type is around ${euro(result.comfortFloor)} gross/year. Rent pressure: ${escapeHtml(result.rentPressure)}.</p>
         </div>
         <div class="goc-panel">
           <div class="goc-mini-score">${result.marketScore}/10</div>
-          <h4>Market fairness check</h4>
+          <h4>Market fairness signal</h4>
           <p>For ${safeRole} with ${safeExperience} experience, the rough v0 band is ${euro(result.band.low)}-${euro(result.band.strong)}. A low score here may indicate lowball risk.</p>
         </div>
         <div class="goc-panel">
           <div class="goc-mini-score">${result.experienceScore}/10</div>
-          <h4>Experience fit</h4>
+          <h4>Experience fit signal</h4>
           <p>This checks whether the offer aligns with the expected range for your declared experience band.</p>
         </div>
-        <div class="goc-panel">
-          <div class="goc-mini-score"><span class="goc-pill ${cssStatus(result.blueCard.status)}">${result.blueCard.status}</span></div>
-          <h4>Blue Card check</h4>
-          <p>${result.blueCard.message}</p>
-        </div>
       </div>
+
       <div class="goc-explain">
-        <h4>Negotiation signal</h4>
-        <p>${negotiation}</p>
+        <h4>Risk signals / next steps</h4>
+        <p>${escapeHtml(negotiation)}</p>
         <div class="goc-callout">
-          <strong>Next step:</strong> Use a German brutto-netto calculator for exact take-home pay and verify Blue Card thresholds with official German sources.
+          <strong>Next step:</strong> Verify gross-to-net take-home pay, role category, guaranteed compensation, city costs, and current official Blue Card requirements before accepting.
         </div>
-        <p class="goc-disclaimer">This is an educational estimate based on public and manually curated data. It is not legal, immigration, tax, financial, or career advice. Salary bands vary by company, role, city, household situation, and individual circumstances.</p>
-        <a class="goc-cta-link" href="${checklistUrl}">Download the Germany Job Offer Checklist</a>
       </div>
+
+      <div class="goc-cta-card">
+        <h4>Want a human review before accepting?</h4>
+        <p>A free checker can flag obvious salary and relocation-readiness signals, but it cannot review your full contract, role context, city costs, or personal situation.</p>
+        <a class="goc-cta-button" href="${reviewUrl}">Get a Germany Offer Reality Review</a>
+        <p class="goc-cta-support">Written educational review. No visa guarantee. Not legal or immigration advice.</p>
+      </div>
+
+      <p class="goc-disclaimer">${escapeHtml(DISCLAIMER_TEXT)}</p>
     `;
   }
 
