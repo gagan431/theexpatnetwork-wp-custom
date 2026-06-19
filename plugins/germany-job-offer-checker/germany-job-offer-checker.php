@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Germany Job Offer Checker
  * Description: Adds a Germany Job Offer Checker calculator via shortcode [germany_job_offer_checker].
- * Version: 0.1.2
+ * Version: 1.0.0
  * Requires at least: 5.8
  * Requires PHP: 7.2
  * Author: The Expat Network
@@ -14,7 +14,7 @@ if (!defined('ABSPATH')) {
 }
 
 if (!defined('GOC_VERSION')) {
-    define('GOC_VERSION', '0.1.2');
+    define('GOC_VERSION', '1.0.0');
 }
 
 /**
@@ -73,6 +73,8 @@ if (!function_exists('goc_register_assets')) {
             // Filterable so a site can point this at a different page
             // (or disable it) without editing the JS bundle.
             'checklistUrl' => apply_filters('goc_checklist_url', home_url('/germany-job-offer-checklist/')),
+            // Primary v1.0 conversion URL. Filterable for staging or page URL changes.
+            'reviewUrl'    => apply_filters('goc_review_url', home_url('/services/germany-job-offer-review/')),
         ));
 
         wp_enqueue_style('goc-style');
@@ -105,8 +107,8 @@ if (!function_exists('goc_shortcode')) {
             <div class="goc-wrap">
               <div class="goc-eyebrow">The Expat Network &middot; Germany-only MVP</div>
               <h2 class="goc-title">Germany Job Offer Checker</h2>
-              <p class="goc-subtitle">Check whether your German job offer is enough after rent, fair for your role, and safely above the Blue Card salary threshold.</p>
-              <div class="goc-notice">Beta scorecard &middot; Calibrated first for Berlin, Munich, and international tech/business roles &middot; Not legal, immigration, tax, financial, or career advice</div>
+              <p class="goc-subtitle">Check whether your German job offer appears aligned with Blue Card salary thresholds, city costs, and role-level salary signals.</p>
+              <div class="goc-notice">Educational readiness estimate &middot; Calibrated first for Berlin, Munich, and international tech/business roles &middot; Not legal, immigration, tax, financial, or career advice</div>
             </div>
           </div>
 
@@ -169,7 +171,7 @@ if (!function_exists('goc_shortcode')) {
             <div class="goc-card goc-result-card" data-goc-result aria-live="polite" role="status">
               <div class="goc-placeholder">
                 <h3>Your result will appear here</h3>
-                <p>Use the form to generate affordability, market fairness, and Blue Card panels.</p>
+                <p>Use the form to generate Blue Card, affordability, market fairness, and experience-fit signals.</p>
               </div>
             </div>
           </div>
