@@ -107,7 +107,7 @@ if (!function_exists('goc_shortcode')) {
             <div class="goc-wrap">
               <div class="goc-eyebrow">The Expat Network &middot; Germany-only MVP</div>
               <h2 class="goc-title">Germany Job Offer Checker</h2>
-              <p class="goc-subtitle">Check whether your German job offer appears aligned with Blue Card salary thresholds, city costs, and role-level salary signals.</p>
+              <p class="goc-subtitle">Check how your German job offer compares with selected Blue Card salary thresholds, city costs, and role-level salary signals.</p>
               <div class="goc-notice">Educational readiness estimate &middot; Calibrated first for Berlin, Munich, and international tech/business roles &middot; Not legal, immigration, tax, financial, or career advice</div>
             </div>
           </div>
