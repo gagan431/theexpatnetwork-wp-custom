@@ -118,7 +118,7 @@
         threshold: threshold,
         thresholdLabel: thresholdLabel,
         message: "Your salary appears close to the selected " + year + " threshold of " + euro(threshold) + ". Review recommended before accepting.",
-        summary: "Small differences in salary, role category, or guaranteed compensation can materially change the readiness signal."
+        summary: "Small differences in salary, role category, or fixed compensation can materially change the readiness signal."
       };
     }
 
@@ -230,7 +230,7 @@
         <h4>Risk signals / next steps</h4>
         <p>${escapeHtml(negotiation)}</p>
         <div class="goc-callout">
-          <strong>Next step:</strong> Verify gross-to-net take-home pay, role category, guaranteed compensation, city costs, and current official Blue Card requirements before accepting.
+          <strong>Next step:</strong> Verify gross-to-net take-home pay, role category, fixed compensation, city costs, and current official Blue Card requirements before accepting.
         </div>
       </div>
 
