@@ -1,3 +1,17 @@
+> [!WARNING]
+> **STATUS: LEGACY / SUPERSEDED**
+>
+> This document reflects an earlier THE EXPAT NETWORK strategy and is retained for historical context only.
+>
+> Do **not** use it as the current source of truth.
+>
+> Start with:
+> `docs/canonical/README.md`
+>
+> Current canonical strategy, accepted ADRs, current specifications and current official sources take precedence over this document.
+
+---
+
 # The Expat Network — Architecture
 
 ## Layer 1 — Content
