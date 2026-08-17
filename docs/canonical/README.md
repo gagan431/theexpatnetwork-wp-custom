@@ -72,12 +72,19 @@ Do not build or imply:
 - `LINKEDIN_STRATEGY.md`
 - `INSTAGRAM_STRATEGY.md`
 - `SOCIAL_MEDIA_STRATEGY_2026.md`
+- `SOCIAL_LINKEDIN_30_DAY_CYCLE.md`
 - `SOCIAL_CONTENT_SOURCE_STACK.md`
 - `SOCIAL_INTELLIGENCE_OPERATING_SYSTEM.md`
 - `KPI_FRAMEWORK.md`
 - `ROADMAP_2026_2027.md`
 - `AI_AND_AUTOMATION_STACK.md`
 - `TOOL_INVENTORY.csv`
+
+## Current social-cycle precedence
+
+For the active 30-day test beginning 17 August 2026, `SOCIAL_LINKEDIN_30_DAY_CYCLE.md` governs current execution where it conflicts with older cadence statements in `SOCIAL_MEDIA_STRATEGY_2026.md`.
+
+This is a temporary operating override, not a permanent change to Instagram's strategic role.
 
 ## AI usage
 
